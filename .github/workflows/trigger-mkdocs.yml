@@ -1,0 +1,20 @@
+
+name: DocStream Build ausloesen
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Zentralen MkDocs-Build starten
+        env:
+          GH_TOKEN: ${{ secrets.DOCSTREAM_BUILD_TRIGGER_TOKEN }}
+        run: |
+          gh workflow run mkdocs.yml \
+            --repo DocStreamAGI/docstream-mkdocs-test \
+            --ref main
